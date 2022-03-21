@@ -1,8 +1,8 @@
+![@marcodonnarumma](./img/Donnarumma-Pevere.webp)
+
 # Dancing-Data
 
 In this repo you will find the inf of the course Arte y Tecnología of the UC3M
-
-## La tecnología como nuevo soporte artistico
 
 ## Slides
 
