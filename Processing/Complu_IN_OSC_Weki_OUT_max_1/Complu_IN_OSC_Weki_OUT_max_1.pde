@@ -25,6 +25,7 @@ String featureString = "";
 
 int xPos = 1;         // horizontal position of the graph
 float inByte = 0;
+
 int localPort = 12000;
 int localPortWeki = 13000;
 int localPortWekiAudio = 70000;
@@ -52,14 +53,13 @@ void setup() {
 
   /// adress for wekinator helper
   myRemoteLocation = new NetAddress("127.0.0.1", 9000);
-  // remoteWekiAudio = new NetAddress("192.168.43.102", 57120);
+  // Direccion de MAX/MSP
   remoteWekiAudio = new NetAddress("127.0.0.1", 4000);
-  /// address for arduino
+  /// Direccion IP del Arduino
   myRemoteArduino = new NetAddress("192.168.43.250", 8888);
 
-  //// address for resolume
+  //// Direccion y puerto de RESOLUME
   myRemoteReso = new NetAddress("127.0.0.1", 3000);
-  //myRemoteReso = new NetAddress("192.168.43.188", 3000);
 
   //*NICE CONTROLS INICILIZATION*//
   cp5 = new ControlP5(this);

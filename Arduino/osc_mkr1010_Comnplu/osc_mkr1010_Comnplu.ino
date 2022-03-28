@@ -1,29 +1,19 @@
 /*
-  WiFi Access Point for OSC Communication
-  A simple web server that lets you send OSC messages over a closed network.
-  This sketch will create a new access point with password.
-  It will then launch a new server, print out the IP address
-  to the Serial monitor, and then send an OSC message over UDP to a specific IP address.
-  created 24 Nov 2018
-  by Federico Peliti
-  based on
-  WiFi Simple Web Server by Tom Igoe
-  WiFi UDP Send and Receive String by dlf
-  UDP Send Message by Adrian Freed
-  Tested with
-  Arduino MKR1010
+  Este código es el encargado de enviar todo lo necesario desde el Arduino hasta el programa que distribuye la información en Processing
+
+  Aquí configuraras los elementos como la dirección IP y el puerto desde el cual arduino envia y recibe los mensajes OSC
+
+  Tambien podras configurar las entradas analógicas de Arduino dependiendo los sensores que conectes 
+  
+  
   NINA Firmware 1.2.1
   Requires the following libraries:
   WiFi by Arduino
   WiFiNINA by Arduino
   OSC by Adrian Freed, Yotam Mann
+  Circular Buffer
+  
 */
-/*
-    Make an OSC message and send it over UDP
-
-    Adrian Freed
-*/
-
 /*
 
   This example connects to an unencrypted Wifi network.
@@ -36,39 +26,28 @@
   by Tom Igoe
 */
 
-
-//#include <Ethernet.h>
-//#include <EthernetUdp.h>
+///////////////// Libraries
 #include <SPI.h>
 #include <OSCMessage.h>
 #include <WiFiNINA.h>
 #include <WiFiUdp.h>
 #include <CircularBuffer.h>
-
 #include <OSCBundle.h>
 
+
+////////////////////////////// Configuración del WIFI al que se conecta
 #include "arduino_secrets.h"
-///////please enter your sensitive data in the Secret tab/arduino_secrets.h
+///////please enter your sensitive data in the Secret tab/arduino_secrets.h and don't publish it in any place
 char ssid[] = SECRET_SSID;        // your network SSID (name)
 char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
 int status = WL_IDLE_STATUS;     // the Wifi radio's status
 
-unsigned int localPort = 8888;      // local port to listen on
 
-// setup circular buffer (rolling window)
-CircularBuffer<int, 10> buffer; //la capacidad del buffer es numbersamples, cuyo valor previamente hemos fijado
-CircularBuffer<int, 10> buffer1;
-CircularBuffer<int, 10> buffer2;
-CircularBuffer<int, 10> buffer3;
-CircularBuffer<int, 10> buffer4;
-CircularBuffer<int, 10> buffer5;
-CircularBuffer<int, 10> buffer6;
-CircularBuffer<int, 10> buffer7;
-
+//////////////////// CONEXION, RECEPCIÓN Y TRANSMISIÓN DE MENSAJES UDP
 WiFiUDP Udp;
 
-//EthernetUDP Udp;
-
+/***************************************(｡◕‿◕｡)************************************************/
+unsigned int localPort = 8888;      // local port to listen on
 //the Arduino's IP
 IPAddress ip(192, 168, 43, 250);
 //destination IP
@@ -77,34 +56,36 @@ const unsigned int outPort = 12000;
 //const unsigned int outPort2 = 13000;
 const unsigned int inPort = 888;
 
-//byte mac[] = {
-//  80,7D,3A,86,F8,84
-//  }; // you can find this written on the board of some Arduino Ethernets or shields
+////////////////////////// CIRCULAR BUFFER Para el suavizado de la señal
 
+// setup circular buffer (rolling window)
 
-/////////////*CALIBRATION ROUTINE VARIABLES*/////////////////
+const int numberSamples = 10;
+
+CircularBuffer<int, numberSamples> buffer; //la capacidad del buffer es numbersamples, cuyo valor previamente hemos fijado
+CircularBuffer<int, numberSamples> buffer1;
+CircularBuffer<int, numberSamples> buffer2;
+CircularBuffer<int, numberSamples> buffer3;
+CircularBuffer<int, numberSamples> buffer4;
+CircularBuffer<int, numberSamples> buffer5;
+CircularBuffer<int, numberSamples> buffer6;
+CircularBuffer<int, numberSamples> buffer7;
+
+/////////////*CALIBRATION ROUTINE VARIABLES (EN PROCESSO) */////////////////
 
 // variables:
 
 //const int sensorPin = A0;    // pin that the sensor is attached to
-
 int senVal[] = {0, 0, 0, 0, 0, 0, 0, 0};
 int senMin[] = {1023, 1023, 1023, 1023, 1023, 1023, 1023};
 int senMax[] = {0, 0, 0, 0, 0, 0, 0};
-
 const int senPin[] = {A0, A1, A2, A3, A4, A5, A6};
 
-
+///////////////////////// SETUP
 void setup() {
-
   Serial.begin(9600);
 
-  // !!!!!!!!!!!!! estos comemntarios son para que se conecte automanticamente y envie
-  //  while (!Serial) {
-  //    ; // wait for serial port to connect. Needed for native USB port only
-  //  }
-
-  // check for the WiFi module:
+  // Revisando el módulo WIFI
   if (WiFi.status() == WL_NO_MODULE) {
     Serial.println("Communication with WiFi module failed!");
     // don't continue
@@ -116,36 +97,37 @@ void setup() {
     Serial.println("Please upgrade the firmware");
   }
 
-  // you can override it with the following:
+  // Aquí se le asigna la WIFI especifica que uno desea, se configura arriba
   WiFi.config(ip);
 
-  // attempt to connect to Wifi network:
+  // Intentos para conectarse a la WIFI
   while (status != WL_CONNECTED) {
     Serial.print("Attempting to connect to WPA SSID: ");
     Serial.println(ssid);
     // Connect to WPA/WPA2 network:
     status = WiFi.begin(ssid, pass);
-
     // wait 10 seconds for connection:
     delay(10000);
-
   }
 
+// si se conecta a la wifi se enciende el led del Arduino
   if (status == WL_CONNECTED) {
     digitalWrite(LED_BUILTIN, HIGH);
   }
-  // you're connected now, so print out the data:
-  Serial.print("You're connected to the network");
+  // Ya que te has conectado imprime estos datos
+  
+  Serial.println("********(｡◕‿◕｡)*********");
+  Serial.println("Has logrado conectarte a la MATRIX");
   printCurrentNet();
   printWifiData();
-  //    Ethernet.begin(mac, ip);
   Udp.begin(localPort);
+  // Si quieres puedes enviar paquetes a diferentes IP's
   // Udp2.begin(localPort);
-
+  // La rutina de calibración esta en proceso de implementacion
   //calibRoutine();
 }
 
-
+///////////////////////////////////////////////////////////////////Loop function
 void loop() {
 
   for (int j = 0; j < 6; j++) {

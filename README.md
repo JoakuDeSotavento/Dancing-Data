@@ -8,11 +8,7 @@ In this repo you will find the inf of the course Arte y Tecnología of the UC3M
 
 Aquí encontraras la [presentación del workshop](https://docs.google.com/presentation/d/1FJbcBHIzNrDRdK3IMDPIEJLXyi7MsTQZoVTmYcN01h8/edit?usp=sharing)
 
-## Temario
-
 ## Libros
-
-<https://github.com/JoakuDeSotavento/computacion-fisica-arte-interactivo/blob/main/introductiontotouchdesigner.pdf>
 
 Esta es una selección de los mejores libros para estos menesteres
 
