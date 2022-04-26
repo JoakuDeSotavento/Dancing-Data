@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 27.0, 84.0, 1468.0, 713.0 ],
+		"rect" : [ 34.0, 77.0, 1468.0, 713.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -1319,7 +1319,7 @@
 			}
 , 			{
 				"box" : 				{
-					"attr" : "basictuning",
+					"attr" : "mode",
 					"fontface" : 0,
 					"fontname" : "Arial",
 					"fontsize" : 13.0,
@@ -1474,7 +1474,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 278.773803999999927, 67.0, 97.0, 22.0 ],
+					"patching_rect" : [ 278.773803999999927, 39.0, 97.0, 22.0 ],
 					"text" : "udpreceive 4000"
 				}
 
@@ -1522,7 +1522,7 @@
 					"patching_rect" : [ 866.4583740234375, 811.471595999999977, 360.0, 155.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 724.2081298828125, 173.0, 360.0, 155.0 ],
-					"setfilter" : [ 0, 3, 1, 0, 0, 0.000099999997474, 14.123989105224609, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+					"setfilter" : [ 0, 3, 1, 0, 0, 5291.2001953125, 6.440000057220459, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
 				}
 
 			}
@@ -2976,7 +2976,7 @@
 		"dependency_cache" : [ 			{
 				"name" : "pan2.maxpat",
 				"bootpath" : "~/AppData/Roaming/Cycling '74/Max 8/examples/spatialization/panning/lib",
-				"patcherrelativepath" : "../../../../../../../../../../Users/Joaku De Sotavento/AppData/Roaming/Cycling '74/Max 8/examples/spatialization/panning/lib",
+				"patcherrelativepath" : "../../../../../../../../../Users/Joaku De Sotavento/AppData/Roaming/Cycling '74/Max 8/examples/spatialization/panning/lib",
 				"type" : "JSON",
 				"implicit" : 1
 			}
