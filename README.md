@@ -41,7 +41,7 @@ El año pasado presentó su trabajo con la Interfaz Cyborg en los festivales Scr
 
 ## Agradecimientos
 
-<img src="img/I_mBODYlab_logo.png" width="150"> 
+<img src="img/I_mBODYlab_logo.jpg" width="150"> 
 <img src="img/BODYinTRANSIT_logo.jpg" width="200"> 
 <img src="img/grant.jpg" width="200">
 
