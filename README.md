@@ -38,3 +38,11 @@ El año pasado presentó su trabajo con la Interfaz Cyborg en los festivales Scr
 [twitter](https://twitter.com/joaku_Sotavento) |
 [web](https://www.arterobotico.com) |
 [github](https://github.com/JoakuDeSotavento) |
+
+## Agradecimientos
+
+<img src="img/I_mBODYlab_logo.png" width="150"> 
+<img src="img/BODYinTRANSIT_logo.jpg" width="200"> 
+<img src="img/grant.jpg" width="200">
+
+- Suported by BODYinTRANSIT Sensory-driven Body Transformation Experiences On-the-move and i_mBODY Lab at UC3M.
